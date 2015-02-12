@@ -1,0 +1,12 @@
+#!/bin/bash
+#Muestra paquetes instalados que cumplan con patron
+
+if [ -z $1 ] ; then
+	echo -e "INGRESE PATRON DE BUSQUEDA\nbuscame [patron]"
+	exit 1
+fi
+
+aptitude search ~i --disable-columns -F "%p" | grep $1
+if [ ! $? = 0 ] ; then
+	echo "NO ESTA INSTALADO"
+fi

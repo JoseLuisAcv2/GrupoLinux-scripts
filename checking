@@ -1,0 +1,14 @@
+#!/bin/bash
+#Revisa si programa esta instalado en maquinas de sala
+
+echo "HOLA. INDIQUE PROGRAMA: " ; read programa
+echo "INDIQUE LA SALA: " ; read sala
+
+for i in {1..25} ; do
+if ssh invitado@${sala}${i}.ac.labf.usb.ve "dpkg -l ${programa} &>/dev/null"
+then
+	echo "INSTALADO"
+else
+	echo "NO INSTALADO"
+fi
+done

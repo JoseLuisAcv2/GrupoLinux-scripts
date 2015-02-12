@@ -1,0 +1,26 @@
+#!/bin/bash
+#Lista directorios de $PATH. Flag -c determina si un directorio se encuentra en $PATH
+
+string=$PATH #guarda $PATH en nueva variable a manipular
+
+function lista {
+while [ $string ] ; do
+	echo ${string%%:*}
+	if [ $string = ${string##*:} ] ; then
+		exit 0
+	fi
+	string=${string#*:}
+done }
+
+if [ $1 = -c ] ; then
+	shift
+	if [ `lista | grep $1` ] ; then
+		echo "SI"
+	else
+		echo "NO ESTA"
+	fi
+elif [ $1 = --help ] ; then
+	echo -e "lister //Lista directorios en \$PATH \nlister [-c] [directorio] //Revisa si directorio esta en \$PATH \nlister --help //Ayuda"
+else
+	lista | xargs ls
+fi
